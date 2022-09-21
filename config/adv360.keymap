@@ -38,11 +38,11 @@
     };
     fancy {
       bindings = <
-        &trans     &kp LS(N1) &kp LS(2) &kp LS(3) &kp LS(4) &kp LS(5) &tog KEYPAD                                                              &mo MOD &kp LS(6) &kp LS(8) &kp LS(9) &kp LS(0) &kp LS(7) &kp K_APP
-        &trans     &trans     &trans    &trans    &trans    &trans    &trans                                                                   &trans  &trans    &trans    &trans    &trans    &trans    &trans
-        &mo KEYPAD &trans     &trans    &trans    &trans    &trans    &trans       &trans        &trans             &trans &trans              &trans  &trans    &trans    &trans    &trans    &trans    &trans
-        &trans     &trans     &trans    &trans    &trans    &trans          &none  &none         &trans &none &none &trans &none        &none          &trans    &trans    &trans    &trans    &trans    &trans
-        &mo FN     &trans     &trans    &trans    &trans                    &trans &mt LCTRL ESC &trans             &trans &mt RCTL ESC &trans                   &trans    &trans    &trans    &trans    &mo FN
+        &trans     &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT &tog KEYPAD                                                               &mo MOD &kp CARET &kp ASTRK &kp LPAR &kp RPAR &kp AMPS &kp K_APP
+        &trans     &trans   &trans &trans   &trans   &trans    &trans                                                                    &trans  &trans    &trans    &trans   &trans   &trans   &trans
+        &mo KEYPAD &trans   &trans &trans   &trans   &trans    &trans        &trans        &trans             &trans &trans              &trans  &trans    &trans    &trans   &trans   &trans   &trans
+        &trans     &trans   &trans &trans   &trans   &trans           &none  &none         &trans &none &none &trans &none        &none          &trans    &trans    &trans   &trans   &trans   &trans
+        &mo FN     &trans   &trans &trans   &trans                    &trans &mt LCTRL ESC &trans             &trans &mt RCTL ESC &trans                   &trans    &trans   &trans   &trans   &mo FN
       >;
     };
     keypad {
