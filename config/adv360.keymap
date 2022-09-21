@@ -58,11 +58,11 @@
     };
     keypad {
       bindings = <
-        &trans &trans &trans       &trans &trans &trans &trans                                                           &mo MOD &trans &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &trans
-        &trans &trans &trans       &trans &trans &trans &trans                                                           &trans  &trans &kp N7     &kp N8       &kp N9        &kp KP_MINUS    &trans
-        &trans &trans &trans       &trans &trans &trans &trans        &trans &trans             &trans &kp DEL           &trans  &trans &kp N4     &kp N5       &kp N6        &kp KP_PLUS     &trans
-        &trans &trans &trans       &trans &trans &trans        &none  &none  &trans &none &none &trans &none   &none             &trans &kp N1     &kp N2       &kp N3        &kp KP_EQUAL    &trans
-        &mo FN &trans &kp CAPSLOCK &trans &trans               &trans &trans &trans             &trans &trans  &kp KP_N0                &trans     &trans       &kp KP_DOT    &kp KP_ENTER    &mo FN 
+        &trans &trans &trans       &trans &trans &trans &trans                                                        &mo MOD &trans &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &trans
+        &trans &trans &trans       &trans &trans &trans &trans                                                        &trans  &trans &kp N7     &kp N8       &kp N9        &kp KP_MINUS    &trans
+        &trans &trans &trans       &trans &trans &trans &trans        &trans &trans             &trans &kp DEL        &trans  &trans &kp N4     &kp N5       &kp N6        &kp KP_PLUS     &trans
+        &trans &trans &trans       &trans &trans &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &kp N1     &kp N2       &kp N3        &kp KP_EQUAL    &trans
+        &mo FN &trans &kp CAPSLOCK &trans &trans               &trans &trans &trans             &trans &trans  &kp N0                &trans     &trans       &kp KP_DOT    &kp KP_ENTER    &mo FN 
       >;
     };
     fn {
