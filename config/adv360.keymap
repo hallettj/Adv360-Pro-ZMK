@@ -50,11 +50,11 @@
     };
     fancy {
       bindings = <
-        &trans     &kp LS(N1) &kp LS(N2) &kp LS(N3) &kp LS(N4) &kp LS(N5) &trans                                                                    &trans  &kp LS(N6) &kp LS(N8) &kp LS(N9) &kp LS(N0) &kp LS(N7) &kp K_APP
-        &trans     &trans     &trans     &trans     &trans     &trans     &trans                                                                    &trans  &trans     &trans     &trans     &trans     &trans     &trans
-        &mo KEYPAD &trans     &trans     &trans     &trans     &trans     &trans        &trans        &trans             &trans &trans              &trans  &trans     &trans     &trans     &trans     &trans     &trans
-        &trans     &trans     &trans     &trans     &trans     &trans            &none  &none         &trans &none &none &trans &none        &none          &trans     &trans     &trans     &trans     &trans     &trans
-        &trans     &trans     &trans     &trans     &trans                       &trans &mt LCTRL ESC &trans             &trans &mt RCTL ESC &trans                    &trans     &trans     &trans     &trans     &trans
+        &trans  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT &trans                                                                    &trans  &kp CARET &kp ASTRK &kp LPAR &kp RPAR &kp AMPS &kp K_APP
+        &trans  &trans   &trans &trans   &trans   &trans    &trans                                                                    &trans  &trans    &trans    &trans   &trans   &trans   &trans
+        &trans  &trans   &trans &trans   &trans   &trans    &trans        &trans        &trans             &trans &trans              &trans  &trans    &trans    &trans   &trans   &trans   &trans
+        &trans  &trans   &trans &trans   &trans   &trans           &none  &none         &trans &none &none &trans &none        &none          &trans    &trans    &trans   &trans   &trans   &trans
+        &trans  &trans   &trans &trans   &trans                    &trans &mt LCTRL ESC &trans             &trans &mt RCTL ESC &trans                   &trans    &trans   &trans   &trans   &trans
       >;
     };
     sticky_shift {
