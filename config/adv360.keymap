@@ -17,26 +17,14 @@
     behaviors {
       #include "macros.dtsi"
 
-      lh_pht: left_hand_positional_hold_tap {
+      bhm: balanced_homerow_mods {
           compatible = "zmk,behavior-hold-tap";
-          label = "LEFT_POSITIONAL_HOLD_TAP";
+          label = "HOMEROW_MODS";
           #binding-cells = <2>;
-          flavor = "tap-unless-interrupted";
-          tapping-term-ms = <100>;                        // <---[[produces tap if held longer than tapping-term-ms]]
-          quick-tap-ms = <200>;
-          bindings = <&kp>, <&kp>;   // 1                 2                    3                          4                             5
-          hold-trigger-key-positions = <7 8 9 10 11 12 13 21 22 23 24 25 26 27 37 38 39 40 41 42 43 44 45 56 57 58 59 60 61 62 63 64 65 74 75 76 77 78 79 80 81>;    // <---[[right-hand keys]]
-      };
-
-      rh_pht: right_hand_positional_hold_tap {
-          compatible = "zmk,behavior-hold-tap";
-          label = "RIGHT_POSITIONAL_HOLD_TAP";
-          #binding-cells = <2>;
-          flavor = "tap-unless-interrupted";
-          tapping-term-ms = <100>;                        // <---[[produces tap if held longer than tapping-term-ms]]
-          quick-tap-ms = <200>;
-          bindings = <&kp>, <&kp>;   // 1             2                    3                          4                             5
-          hold-trigger-key-positions = <0 1 2 3 4 5 6 14 15 16 17 18 19 20 28 29 30 31 32 33 34 35 36 46 47 48 49 50 51 52 53 54 55 66 67 68 69 70 71 72 73>;    // <---[[left-hand keys]]
+          tapping-term-ms = <200>;    // <---[[moderate duration]]
+          quick-tap-ms = <0>;
+          flavor = "balanced";
+          bindings = <&kp>, <&kp>;
       };
     };
 
@@ -81,11 +69,11 @@
     };
     homerow_mods {
       bindings = <
-        &trans &trans          &trans          &trans           &trans           &trans &trans                                                       &trans &trans &trans           &trans           &trans          &trans          &trans
-        &trans &trans          &trans          &trans           &trans           &trans &trans                                                       &trans &trans &trans           &trans           &trans          &trans          &trans
-        &trans &lh_pht LGUI A  &lh_pht LALT O  &lh_pht LCTRL E  &lh_pht LSHFT U  &trans &trans        &trans &trans             &trans &trans        &trans &trans &rh_pht RSHFT H  &rh_pht RCTRL T  &rh_pht RALT N  &rh_pht RGUI S  &trans
-        &trans &trans          &trans          &trans           &trans           &trans        &none  &none  &trans &none &none &trans &none  &none         &trans &trans           &trans           &trans          &trans          &trans
-        &trans &trans          &trans          &trans           &trans                         &trans &trans &trans             &trans &trans &trans               &trans           &trans           &trans          &trans          &trans
+        &trans &trans       &trans       &trans        &trans        &trans &trans                                                       &trans &trans &trans        &trans        &trans       &trans       &trans
+        &trans &trans       &trans       &trans        &trans        &trans &trans                                                       &trans &trans &trans        &trans        &trans       &trans       &trans
+        &trans &bhm LGUI A  &bhm LALT O  &bhm LCTRL E  &bhm LSHFT U  &trans &trans        &trans &trans             &trans &trans        &trans &trans &bhm RSHFT H  &bhm RCTRL T  &bhm RALT N  &bhm RGUI S  &trans
+        &trans &trans       &trans       &trans        &trans        &trans        &none  &none  &trans &none &none &trans &none  &none         &trans &trans        &trans        &trans       &trans       &trans
+        &trans &trans       &trans       &trans        &trans                      &trans &trans &trans             &trans &trans &trans               &trans        &trans        &trans       &trans       &trans
       >;
     };
     keypad {
