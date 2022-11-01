@@ -26,6 +26,16 @@
           flavor = "balanced";
           bindings = <&kp>, <&kp>;
       };
+
+      bmo: balanced_momentary_layer_tap {
+          compatible = "zmk,behavior-hold-tap";
+          label = "BALANCED_MOMENTARY_LAYER_TAP";
+          #binding-cells = <2>;
+          tapping-term-ms = <200>;    // <---[[moderate duration]]
+          quick-tap-ms = <0>;
+          flavor = "balanced";
+          bindings = <&mo>, <&kp>;
+      };
     };
 
   keymap {
@@ -69,11 +79,11 @@
     };
     homerow_mods {
       bindings = <
-        &trans &trans       &trans       &trans        &trans        &trans &trans                                                       &trans &trans &trans        &trans        &trans       &trans       &trans
-        &trans &trans       &trans       &trans        &trans        &trans &trans                                                       &trans &trans &trans        &trans        &trans       &trans       &trans
-        &trans &bhm LGUI A  &bhm LALT O  &bhm LCTRL E  &bhm LSHFT U  &trans &trans        &trans &trans             &trans &trans        &trans &trans &bhm RSHFT H  &bhm RCTRL T  &bhm RALT N  &bhm RGUI S  &trans
-        &trans &trans       &trans       &trans        &trans        &trans        &none  &none  &trans &none &none &trans &none  &none         &trans &trans        &trans        &trans       &trans       &trans
-        &trans &trans       &trans       &trans        &trans                      &trans &trans &trans             &trans &trans &trans               &trans        &trans        &trans       &trans       &trans
+        &trans &trans       &trans       &trans        &trans        &trans &trans                                                                   &trans &trans &trans        &trans        &trans       &trans       &trans
+        &trans &trans       &trans       &trans        &trans        &trans &trans                                                                   &trans &trans &trans        &trans        &trans       &trans       &trans
+        &trans &bhm LGUI A  &bhm LALT O  &bhm LCTRL E  &bhm LSHFT U  &trans &trans                    &trans &trans             &trans &trans        &trans &trans &bhm RSHFT H  &bhm RCTRL T  &bhm RALT N  &bhm RGUI S  &trans
+        &trans &trans       &trans       &trans        &trans        &trans        &none              &none  &trans &none &none &trans &none  &none         &trans &trans        &trans        &trans       &trans       &trans
+        &trans &trans       &trans       &trans        &trans                      &bmo KEYPAD SPACE  &trans &trans             &trans &trans &trans               &trans        &trans        &trans       &trans       &trans
       >;
     };
     keypad {
