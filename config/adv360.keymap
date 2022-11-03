@@ -8,7 +8,7 @@
 #define QWERTY       1
 #define FANCY        2
 #define STICKY_SHIFT 3
-#define HOMEROW_MODS 4
+#define MIRYOKU      4
 #define KEYPAD       5
 #define FN           6 
 #define MOD          7
@@ -17,9 +17,9 @@
     behaviors {
       #include "macros.dtsi"
 
-      bhm: balanced_homerow_mods {
+      hm: balanced_homerow_mods {
           compatible = "zmk,behavior-hold-tap";
-          label = "HOMEROW_MODS";
+          label = "HOMEROW_MOD";
           #binding-cells = <2>;
           tapping-term-ms = <200>;    // <---[[moderate duration]]
           quick-tap-ms = <200>;
@@ -27,7 +27,7 @@
           bindings = <&kp>, <&kp>;
       };
 
-      bmo: balanced_momentary_layer_tap {
+      hl: balanced_momentary_layer_tap {
           compatible = "zmk,behavior-hold-tap";
           label = "BALANCED_MOMENTARY_LAYER_TAP";
           #binding-cells = <2>;
@@ -77,13 +77,13 @@
         &trans    &trans &trans &trans &trans               &trans &trans &trans             &trans &trans &trans               &trans &trans &trans &trans &trans
       >;
     };
-    homerow_mods {
+    miryoku {
       bindings = <
-        &trans &trans       &trans       &trans        &trans        &trans &trans                                                                   &trans &trans &trans        &trans        &trans       &trans       &trans
-        &trans &trans       &trans       &trans        &trans        &trans &trans                                                                   &trans &trans &trans        &trans        &trans       &trans       &trans
-        &trans &bhm LGUI A  &bhm LALT O  &bhm LCTRL E  &bhm LSHFT U  &trans &trans                    &trans &trans             &trans &trans        &trans &trans &bhm RSHFT H  &bhm RCTRL T  &bhm RALT N  &bhm RGUI S  &trans
-        &trans &trans       &trans       &trans        &trans        &trans        &none              &none  &trans &none &none &trans &none  &none         &trans &trans        &trans        &trans       &trans       &trans
-        &trans &trans       &trans       &trans        &trans                      &bmo KEYPAD SPACE  &trans &trans             &trans &trans &trans               &trans        &trans        &trans       &trans       &trans
+        &trans &trans     &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans     &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &hm LGUI A &hm LALT O  &hm LCTRL E  &hm LSHFT U  &trans &trans                    &trans &trans             &trans &trans        &trans &trans &hm RSHFT H  &hm RCTRL T  &hm RALT N  &hm RGUI S  &trans
+        &trans &trans     &trans      &trans       &trans       &trans        &none              &none  &trans &none &none &trans &none  &none         &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans     &trans      &trans       &trans                     &hl KEYPAD SPACE   &trans &trans             &trans &trans &trans               &trans       &trans       &trans      &trans      &trans
       >;
     };
     keypad {
@@ -106,11 +106,11 @@
     };
     mod {
       bindings = <
-        &none      &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none                                                                                     &trans                 &bt BT_SEL 0  &bt BT_SEL 1      &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4      &none
-        &none      &none        &none        &none        &none        &none        &bootloader                                                                               &bootloader            &tog FANCY    &none             &none        &none        &none             &none
-        &none      &none        &none        &none        &none        &none        &rgb_ug RGB_MEFS_CMD 5     &bt BT_CLR &bt BT_CLR            &bt BT_CLR &bt BT_CLR         &rgb_ug RGB_MEFS_CMD 5 &to DEF_LAYER &tog HOMEROW_MODS &none        &none        &tog STICKY_SHIFT &none
-        &none      &none        &to QWERTY   &none        &none        &none                   &none           &none      &none     &none &none &none      &none      &none                          &none         &none             &none        &none        &none             &none
-        &none      &none        &none        &bl BL_INC   &bl BL_DEC                           &rgb_ug RGB_TOG &bl BL_TOG &none                 &none      &bl BL_TOG &rgb_ug RGB_TOG                              &bl BL_INC        &bl BL_DEC   &none        &none             &none
+        &none      &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none                                                                                     &trans                 &bt BT_SEL 0  &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4      &none
+        &none      &none        &none        &none        &none        &none        &bootloader                                                                               &bootloader            &tog FANCY    &none        &none        &none        &none             &none
+        &none      &none        &none        &none        &none        &none        &rgb_ug RGB_MEFS_CMD 5     &bt BT_CLR &bt BT_CLR            &bt BT_CLR &bt BT_CLR         &rgb_ug RGB_MEFS_CMD 5 &to DEF_LAYER &none        &none        &none        &tog STICKY_SHIFT &none
+        &none      &none        &to QWERTY   &none        &none        &none                   &none           &none      &none     &none &none &none      &none      &none                          &none         &tog MIRYOKU &none        &none        &none             &none
+        &none      &none        &none        &bl BL_INC   &bl BL_DEC                           &rgb_ug RGB_TOG &bl BL_TOG &none                 &none      &bl BL_TOG &rgb_ug RGB_TOG                              &bl BL_INC   &bl BL_DEC   &none        &none             &none
       >;
     };
   };
