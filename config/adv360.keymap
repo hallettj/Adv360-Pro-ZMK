@@ -84,7 +84,7 @@
       bindings = <
         &trans &trans      &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &hm LALT A  &hm LGUI O  &hm LCTRL E  &hm LSHFT U  &trans &trans                    &trans &trans             &trans &trans        &trans &trans &hm RSHFT H  &hm RCTRL T  &hm RGUI N  &hm RALT S  &trans
+        &trans &hm LALT A  &hm LGUI O  &hm LSHFT E  &hm LCTRL U  &trans &trans                    &trans &trans             &trans &trans        &trans &trans &hm RCTRL H  &hm RSHFT T  &hm RGUI N  &hm RALT S  &trans
         &trans &trans      &trans      &trans       &trans       &trans        &none              &none  &trans &none &none &trans &none  &none         &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE   &trans &trans             &trans &trans &trans               &trans       &trans       &trans      &trans      &trans
       >;
@@ -102,7 +102,7 @@
       bindings = <
         &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
         &trans  &kp PG_UP  &kp HOME    &kp UP       &kp END      &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
-        &trans  &kp PG_DN  &kp LEFT    &kp DOWN     &kp RIGHT    &trans      &trans        &trans &trans             &trans &trans        &trans &trans      &sk RSHFT    &sk RCTRL    &sk RGUI    &sk RALT    &trans
+        &trans  &kp PG_DN  &kp LEFT    &kp DOWN     &kp RIGHT    &trans      &trans        &trans &trans             &trans &trans        &trans &trans      &sk RCTRL    &sk RSHFT    &sk RGUI    &sk RALT    &trans
         &trans  &trans     &trans      &trans       &trans       &key_repeat        &none  &none  &trans &none &none &trans &none  &none         &key_repeat &trans       &trans       &trans      &trans      &trans
         &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
       >;
@@ -111,7 +111,7 @@
       bindings = <
         &trans &trans   &trans   &trans    &trans    &trans &trans                                                        &trans  &trans &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &trans
         &trans &trans   &trans   &trans    &trans    &trans &trans                                                        &trans  &trans &kp N7     &kp N8       &kp N9        &kp KP_MINUS    &trans
-        &trans &sk LALT &sk LGUI &sk LCTRL &sk LSHFT &trans &trans        &trans &trans             &trans &kp DEL        &trans  &trans &kp N4     &kp N5       &kp N6        &kp KP_PLUS     &trans
+        &trans &sk LALT &sk LGUI &sk LSHFT &sk LCTRL &trans &trans        &trans &trans             &trans &kp DEL        &trans  &trans &kp N4     &kp N5       &kp N6        &kp KP_PLUS     &trans
         &trans &trans   &trans   &trans    &trans    &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &kp N1     &kp N2       &kp N3        &kp KP_EQUAL    &trans
         &trans &trans   &trans   &trans    &trans                  &trans &trans &trans             &trans &trans  &kp N0                &trans     &trans       &kp KP_DOT    &kp KP_ENTER    &mo FN 
       >;
