@@ -79,11 +79,11 @@
     };
     miryoku {
       bindings = <
-        &trans &trans     &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans     &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &hm LGUI A &hm LALT O  &hm LCTRL E  &hm LSHFT U  &trans &trans                    &trans &trans             &trans &trans        &trans &trans &hm RSHFT H  &hm RCTRL T  &hm RALT N  &hm RGUI S  &trans
-        &trans &trans     &trans      &trans       &trans       &trans        &none              &none  &trans &none &none &trans &none  &none         &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans     &trans      &trans       &trans                     &hl KEYPAD SPACE   &trans &trans             &trans &trans &trans               &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &hm LALT A  &hm LGUI O  &hm LCTRL E  &hm LSHFT U  &trans &trans                    &trans &trans             &trans &trans        &trans &trans &hm RSHFT H  &hm RCTRL T  &hm RGUI N  &hm RALT S  &trans
+        &trans &trans      &trans      &trans       &trans       &trans        &none              &none  &trans &none &none &trans &none  &none         &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE   &trans &trans             &trans &trans &trans               &trans       &trans       &trans      &trans      &trans
       >;
     };
     keypad {
