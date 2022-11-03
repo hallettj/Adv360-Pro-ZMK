@@ -91,11 +91,11 @@
     };
     callum_base {
       bindings = <
-        &trans  &trans &trans &trans &trans &trans &trans                                                                                     &trans &trans &trans &trans &trans &trans &trans
-        &trans  &trans &trans &trans &trans &trans &trans                                                                                     &trans &trans &trans &trans &trans &trans &trans
-        &kp ESC &trans &trans &trans &trans &trans &trans        &trans                &trans             &trans &trans                       &trans &trans &trans &trans &trans &trans &trans
-        &trans  &trans &trans &trans &trans &trans        &none  &none                 &trans &none &none &trans &none                 &none         &trans &trans &trans &trans &trans &trans
-        &trans  &trans &trans &trans &trans               &trans &mo CALLUM_MODS_RIGHT &trans             &trans &mo CALLUM_MODS_LEFT &trans                &trans &trans &trans &trans &trans
+        &trans  &trans &trans &trans &trans &trans &trans                                                                                         &trans &trans &trans &trans &trans &trans &trans
+        &trans  &trans &trans &trans &trans &trans &trans                                                                                         &trans &trans &trans &trans &trans &trans &trans
+        &kp ESC &trans &trans &trans &trans &trans &trans        &trans                    &trans             &trans &trans                       &trans &trans &trans &trans &trans &trans &trans
+        &trans  &trans &trans &trans &trans &trans        &none  &none                     &trans &none &none &trans &none                 &none         &trans &trans &trans &trans &trans &trans
+        &trans  &trans &trans &trans &trans               &trans &lt CALLUM_MODS_RIGHT ESC &trans             &trans &mo CALLUM_MODS_LEFT &trans                &trans &trans &trans &trans &trans
       >;
     };
     callum_left {
