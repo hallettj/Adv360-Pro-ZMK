@@ -17,8 +17,10 @@
 #define EXTEND_ALT        10
 #define MODS_LEFT         11
 #define MODS_RIGHT        12
-#define FN                13
-#define MOD               14 
+#define MODS_LEFT_LOWER   13
+#define MODS_RIGHT_LOWER  14
+#define FN                15
+#define MOD               16 
 
 / {
     behaviors {
@@ -47,20 +49,36 @@
       conditional_layers {
           compatible = "zmk,conditional-layers";
           right_mods_with_extend {
-            if-layers = <COMPACT_BASE EXTEND>;
+            if-layers = <MODS_HOMEROW EXTEND>;
             then-layer = <MODS_RIGHT>;
           };
           right_mods_with_symbol {
-            if-layers = <COMPACT_BASE SYMBOL>;
+            if-layers = <MODS_HOMEROW SYMBOL>;
             then-layer = <MODS_RIGHT>;
           };
           left_mods_with_keypad {
-            if-layers = <COMPACT_BASE KEYPAD>;
+            if-layers = <MODS_HOMEROW KEYPAD>;
             then-layer = <MODS_LEFT>;
           };
           left_mods_with_extend_alt {
-            if-layers = <COMPACT_BASE EXTEND_ALT>;
+            if-layers = <MODS_HOMEROW EXTEND_ALT>;
             then-layer = <MODS_LEFT>;
+          };
+          right_lower_mods_with_extend {
+            if-layers = <MODS_LOWERROW EXTEND>;
+            then-layer = <MODS_RIGHT_LOWER>;
+          };
+          right_lower_mods_with_symbol {
+            if-layers = <MODS_LOWERROW SYMBOL>;
+            then-layer = <MODS_RIGHT_LOWER>;
+          };
+          left_lower_mods_with_keypad {
+            if-layers = <MODS_LOWERROW KEYPAD>;
+            then-layer = <MODS_LEFT_LOWER>;
+          };
+          left_lower_mods_with_extend_alt {
+            if-layers = <MODS_LOWERROW EXTEND_ALT>;
+            then-layer = <MODS_LEFT_LOWER>;
           };
       };
     };
@@ -144,7 +162,7 @@
       bindings = <
         &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
         &trans  &kp EXCL   &kp AT      &kp HASH     &kp DLLR     &kp PRCNT   &trans                                                       &trans &kp CARET   &kp ASTRK    &kp UNDER    &kp FSLH    &kp AMPS    &trans
-        &trans  &kp GRAVE  &kp TILDE   &kp LBRC     &kp LPAR     &kp LBKT    &trans        &trans &trans             &trans &trans        &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &kp GRAVE  &kp TILDE   &kp LBRC     &kp LPAR     &kp LBKT    &trans        &trans &trans             &trans &trans        &trans &trans      &kp KP_MINUS &kp KP_EQUAL &kp KP_PLUS &kp BSLH    &trans
         &trans  &kp LT     &kp GT      &kp RBRC     &kp RPAR     &kp RBKT           &none  &none  &trans &none &none &trans &none  &none         &kp PIPE    &kp KP_MINUS &kp KP_EQUAL &kp KP_PLUS &kp BSLH    &trans
         &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
       >;
@@ -153,7 +171,7 @@
       bindings = <
         &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans           &trans        &trans        &trans      &trans      &trans
         &trans  &kp PG_UP  &kp HOME    &kp UP       &kp END      &trans      &trans                                                       &trans &kp C_PLAY_PAUSE &kp C_VOL_DN  &kp C_VOL_UP  &kp C_PREV  &kp C_NEXT  &trans
-        &trans  &kp PG_DN  &kp LEFT    &kp DOWN     &kp RIGHT    &caps_word  &trans        &trans &trans             &trans &trans        &trans &trans           &trans        &trans        &trans      &trans      &trans
+        &trans  &kp PG_DN  &kp LEFT    &kp DOWN     &kp RIGHT    &caps_word  &trans        &trans &trans             &trans &trans        &trans &trans           &kp TAB       &kp BKSP      &kp DEL     &kp ESC     &trans
         &trans  &trans     &trans      &trans       &kp ENTER    &key_repeat        &none  &none  &trans &none &none &trans &none  &none         &key_repeat      &kp TAB       &kp BKSP      &kp DEL     &kp ESC     &trans
         &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                         &trans        &trans        &trans      &trans      &trans
       >;
@@ -162,7 +180,7 @@
       bindings = <
         &trans  &trans           &trans       &trans        &trans        &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
         &trans  &kp C_PLAY_PAUSE &kp C_PREV   &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &trans                                                       &trans &kp HOME    &kp PG_UP    &kp PG_DN    &kp END     &trans      &trans
-        &trans  &trans           &trans       &trans        &trans        &trans      &trans        &trans &trans             &trans &trans        &trans &kp LEFT    &kp DOWN     &kp UP       &kp RIGHT   &kp BKSP    &trans
+        &trans  &kp ESC          &trans       &trans        &kp TAB       &trans      &trans        &trans &trans             &trans &trans        &trans &kp LEFT    &kp DOWN     &kp UP       &kp RIGHT   &kp BKSP    &trans
         &trans  &kp ESC          &trans       &trans        &kp TAB       &key_repeat        &none  &none  &trans &none &none &trans &none  &none         &key_repeat &kp ENTER    &trans       &trans      &kp DEL     &trans
         &trans  &trans           &trans       &trans        &trans                           &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
       >;
@@ -182,6 +200,24 @@
         &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
         &trans  &trans     &trans      &trans       &trans       &trans      &trans        &trans &trans             &trans &trans        &trans &trans      &sk RCTRL    &sk RSHFT    &sk RGUI    &sk RALT    &trans
         &trans  &trans     &trans      &trans       &trans       &trans             &none  &none  &trans &none &none &trans &none  &none         &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
+      >;
+    };
+    mods_left_lower {
+      bindings = <
+        &trans &trans   &trans   &trans    &trans    &trans &trans                                                        &trans  &trans &trans     &trans       &trans        &trans          &trans
+        &trans &trans   &trans   &trans    &trans    &trans &trans                                                        &trans  &trans &trans     &trans       &trans        &trans          &trans
+        &trans &trans   &trans   &trans    &trans    &trans &trans        &trans &trans             &trans &trans         &trans  &trans &trans     &trans       &trans        &trans          &trans
+        &trans &sk LALT &sk LGUI &sk LSHFT &sk LCTRL &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &trans     &trans       &trans        &trans          &trans
+        &trans &trans   &trans   &trans    &trans                  &trans &trans &trans             &trans &trans  &trans                &trans     &trans       &trans        &trans          &trans
+      >;
+    };
+    mods_right_lower {
+      bindings = <
+        &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans       &trans      &trans        &trans &trans             &trans &trans        &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans       &trans             &none  &none  &trans &none &none &trans &none  &none         &trans      &sk RCTRL    &sk RSHFT    &sk RGUI    &sk RALT    &trans
         &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
       >;
     };
