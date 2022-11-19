@@ -8,13 +8,17 @@
 #define QWERTY            1
 #define FANCY             2
 #define STICKY_SHIFT      3
-#define MIRYOKU           4
-#define CALLUM_BASE       5
-#define CALLUM_MODS_LEFT  6
-#define CALLUM_MODS_RIGHT 7
-#define KEYPAD            8
-#define FN                9 
-#define MOD               10
+#define COMPACT_BASE      4
+#define MODS_HOMEROW      5
+#define MODS_LOWERROW     6
+#define KEYPAD            7
+#define SYMBOL            8
+#define EXTEND            9
+#define EXTEND_ALT        10
+#define MODS_LEFT         11
+#define MODS_RIGHT        12
+#define FN                13
+#define MOD               14 
 
 / {
     behaviors {
@@ -38,6 +42,26 @@
           quick-tap-ms = <200>;
           flavor = "balanced";
           bindings = <&mo>, <&kp>;
+      };
+
+      conditional_layers {
+          compatible = "zmk,conditional-layers";
+          right_mods_with_extend {
+            if-layers = <COMPACT_BASE EXTEND>;
+            then-layer = <MODS_RIGHT>;
+          };
+          right_mods_with_symbol {
+            if-layers = <COMPACT_BASE SYMBOL>;
+            then-layer = <MODS_RIGHT>;
+          };
+          left_mods_with_keypad {
+            if-layers = <COMPACT_BASE KEYPAD>;
+            then-layer = <MODS_LEFT>;
+          };
+          left_mods_with_extend_alt {
+            if-layers = <COMPACT_BASE EXTEND_ALT>;
+            then-layer = <MODS_LEFT>;
+          };
       };
     };
 
@@ -80,49 +104,85 @@
         &trans    &trans &trans &trans &trans               &trans &trans &trans             &trans &trans &trans               &trans &trans &trans &trans &trans
       >;
     };
-    miryoku {
+    compact_base {
       bindings = <
-        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                   &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &hm LALT A  &hm LGUI O  &hm LSHFT E  &hm LCTRL U  &trans &trans                    &trans &trans             &trans &trans        &trans &trans &hm RCTRL H  &hm RSHFT T  &hm RGUI N  &hm RALT S  &trans
-        &trans &trans      &trans      &trans       &trans       &trans        &none              &none  &trans &none &none &trans &none  &none         &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE   &trans &trans             &trans &trans &trans               &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                                       &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                                       &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                   &trans   &trans             &trans &trans                           &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans        &none             &none    &trans &none &none &trans &none           &none                   &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE  &kp ESC  &trans             &trans &lt EXTEND ESC  &hl SYMBOL ENTER               &trans       &trans       &trans      &trans      &trans
       >;
     };
-    callum_base {
+    mods_homerow {
       bindings = <
-        &trans  &trans &trans &trans &trans &trans &trans                                                                                         &trans &trans &trans &trans &trans &trans &trans
-        &trans  &trans &trans &trans &trans &trans &trans                                                                                         &trans &trans &trans &trans &trans &trans &trans
-        &kp ESC &trans &trans &trans &trans &trans &trans        &trans                    &trans             &trans &trans                       &trans &trans &trans &trans &trans &trans &trans
-        &trans  &trans &trans &trans &trans &trans        &none  &none                     &trans &none &none &trans &none                 &none         &trans &trans &trans &trans &trans &trans
-        &trans  &trans &trans &trans &trans               &trans &lt CALLUM_MODS_RIGHT ESC &trans             &trans &mo CALLUM_MODS_LEFT &trans                &trans &trans &trans &trans &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                                                          &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                                                          &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &hm LALT A  &hm LGUI O  &hm LSHFT E  &hm LCTRL U  &trans &trans         &trans  &trans             &trans &trans         &trans &trans &hm RCTRL H  &hm RSHFT T  &hm RGUI N  &hm RALT S  &trans
+        &trans &trans      &trans      &trans       &trans       &trans        &none   &none   &trans &none &none &trans &none   &none         &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans                     &trans  &trans  &trans             &trans &trans  &trans               &trans       &trans       &trans      &trans      &trans
       >;
     };
-    callum_left {
+    mods_lowerrow {
       bindings = <
-        &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
-        &trans  &kp PG_UP  &kp HOME    &kp UP       &kp END      &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
-        &trans  &kp PG_DN  &kp LEFT    &kp DOWN     &kp RIGHT    &trans      &trans        &trans &trans             &trans &trans        &trans &trans      &sk RCTRL    &sk RSHFT    &sk RGUI    &sk RALT    &trans
-        &trans  &trans     &trans      &trans       &trans       &key_repeat        &none  &none  &trans &none &none &trans &none  &none         &key_repeat &trans       &trans       &trans      &trans      &trans
-        &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
-      >;
-    };
-    callum_right {
-      bindings = <
-        &trans &trans   &trans   &trans    &trans    &trans &trans                                                        &trans  &trans &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &trans
-        &trans &trans   &trans   &trans    &trans    &trans &trans                                                        &trans  &trans &kp N7     &kp N8       &kp N9        &kp KP_MINUS    &trans
-        &trans &sk LALT &sk LGUI &sk LSHFT &sk LCTRL &trans &trans        &trans &trans             &trans &kp DEL        &trans  &trans &kp N4     &kp N5       &kp N6        &kp KP_PLUS     &trans
-        &trans &trans   &trans   &trans    &trans    &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &kp N1     &kp N2       &kp N3        &kp KP_EQUAL    &trans
-        &trans &trans   &trans   &trans    &trans                  &trans &trans &trans             &trans &trans  &kp N0                &trans     &trans       &kp KP_DOT    &kp KP_ENTER    &mo FN 
+        &trans &trans         &trans      &trans       &trans       &trans &trans                                                          &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans         &trans      &trans       &trans       &trans &trans                                                          &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans         &trans      &trans       &trans       &trans &trans         &trans  &trans             &trans &trans         &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &hm LALT SEMI  &hm LGUI Q  &hm LSHFT J  &hm LCTRL K  &trans        &none   &none   &trans &none &none &trans &none   &none         &trans &hm RCTRL M  &hm RSHFT W  &hm RGUI V  &hm RALT Z  &trans
+        &trans &trans         &trans      &trans       &trans                     &trans  &trans  &trans             &trans &trans  &trans               &trans       &trans       &trans      &trans      &trans
       >;
     };
     keypad {
       bindings = <
-        &trans &trans &trans       &trans &trans &trans &trans                                                        &mo MOD &trans &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &trans
+        &trans &trans &trans       &trans &trans &trans &trans                                                        &trans  &trans &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &trans
         &trans &trans &trans       &trans &trans &trans &trans                                                        &trans  &trans &kp N7     &kp N8       &kp N9        &kp KP_MINUS    &trans
-        &trans &trans &trans       &trans &trans &trans &trans        &trans &trans             &trans &kp DEL        &trans  &trans &kp N4     &kp N5       &kp N6        &kp KP_PLUS     &trans
-        &trans &trans &trans       &trans &trans &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &kp N1     &kp N2       &kp N3        &kp KP_EQUAL    &trans
-        &mo FN &trans &kp INSERT   &trans &trans               &trans &trans &trans             &trans &trans  &kp N0                &trans     &trans       &kp KP_DOT    &kp KP_ENTER    &mo FN 
+        &trans &trans &trans       &trans &trans &trans &trans        &trans &trans             &trans &kp DEL        &trans  &trans &kp N4     &kp N5       &kp N6        &kp KP_EQUAL    &trans
+        &trans &trans &trans       &trans &trans &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &kp N1     &kp N2       &kp N3        &kp KP_PLUS     &trans
+        &trans &trans &kp INSERT   &trans &trans               &trans &trans &trans             &trans &trans  &kp N0                &trans     &trans       &kp KP_DOT    &kp KP_ENTER    &trans 
+      >;
+    };
+    symbol {
+      bindings = <
+        &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &kp EXCL   &kp AT      &kp HASH     &kp DLLR     &kp PRCNT   &trans                                                       &trans &kp CARET   &kp ASTRK    &kp UNDER    &trans      &AMPS       &trans
+        &trans  &kp GRAVE  &kp TILDE   &kp LBRC     &kp LPAR     &kp LBKT    &trans        &trans &trans             &trans &trans        &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &kp LT     &kp GT      &kp RBRC     &kp RPAR     &kp RBKT           &none  &none  &trans &none &none &trans &none  &none         &kp PIPE    &kp KP_MINUS &kp KP_EQUAL &KP_PLUS    &BSLH       &trans
+        &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
+      >;
+    };
+    extend {
+      bindings = <
+        &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &kp PG_UP  &kp HOME    &kp UP       &kp END      &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &kp PG_DN  &kp LEFT    &kp DOWN     &kp RIGHT    &caps_word  &trans        &trans &trans             &trans &trans        &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans       &key_repeat        &none  &none  &trans &none &none &trans &none  &none         &key_repeat &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
+      >;
+    };
+    extend_alt {
+      bindings = <
+        &trans  &trans  &kp C_VOL_DN  &kp C_VOL_UP  &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans  &trans        &trans        &trans       &trans      &trans                                                       &trans &kp HOME    &kp PG_UP    &kp PG_DN    &kp END     &trans      &trans
+        &trans  &trans  &trans        &trans        &trans       &trans      &trans        &trans &trans             &trans &trans        &trans &kp LEFT    &kp DOWN     &kp UP       &kp RIGHT   &kp BKSP    &trans
+        &trans  &kp ESC &trans        &kp TAB       &key_repeat  &trans             &none  &none  &trans &none &none &trans &none  &none         &key_repeat &kp ENTER    &trans       &trans      &kp DEL     &trans
+        &trans  &trans  &trans        &trans        &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
+      >;
+    };
+    mods_left {
+      bindings = <
+        &trans &trans   &trans   &trans    &trans    &trans &trans                                                        &trans  &trans &trans     &trans       &trans        &trans          &trans
+        &trans &trans   &trans   &trans    &trans    &trans &trans                                                        &trans  &trans &trans     &trans       &trans        &trans          &trans
+        &trans &sk LALT &sk LGUI &sk LSHFT &sk LCTRL &trans &trans        &trans &trans             &trans &trans         &trans  &trans &trans     &trans       &trans        &trans          &trans
+        &trans &trans   &trans   &trans    &trans    &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &trans     &trans       &trans        &trans          &trans
+        &trans &trans   &trans   &trans    &trans                  &trans &trans &trans             &trans &trans  &trans                &trans     &trans       &trans        &trans          &trans
+      >;
+    };
+    mods_right {
+      bindings = <
+        &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans       &trans      &trans        &trans &trans             &trans &trans        &trans &trans      &sk RCTRL    &sk RSHFT    &sk RGUI    &sk RALT    &trans
+        &trans  &trans     &trans      &trans       &trans       &trans             &none  &none  &trans &none &none &trans &none  &none         &trans      &trans       &trans       &trans      &trans      &trans
+        &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
       >;
     };
     fn {
@@ -136,11 +196,11 @@
     };
     mod {
       bindings = <
-        &none      &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none                                                                                     &trans                 &bt BT_SEL 0  &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3 &bt BT_SEL 4      &none
-        &none      &none        &none        &none        &none        &none        &bootloader                                                                               &bootloader            &tog FANCY    &none        &tog CALLUM_BASE &none        &none             &none
-        &none      &none        &none        &none        &none        &none        &rgb_ug RGB_MEFS_CMD 5     &bt BT_CLR &bt BT_CLR            &bt BT_CLR &bt BT_CLR         &rgb_ug RGB_MEFS_CMD 5 &to DEF_LAYER &none        &none            &none        &tog STICKY_SHIFT &none
-        &none      &none        &to QWERTY   &none        &none        &none                   &none           &none      &none     &none &none &none      &none      &none                          &none         &tog MIRYOKU &none            &none        &none             &none
-        &none      &none        &none        &bl BL_INC   &bl BL_DEC                           &rgb_ug RGB_TOG &bl BL_TOG &none                 &none      &bl BL_TOG &rgb_ug RGB_TOG                              &bl BL_INC   &bl BL_DEC       &none        &none             &none
+        &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none                                                                                     &trans                 &bt BT_SEL 0  &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3 &bt BT_SEL 4       &none
+        &none &none        &none        &none        &none        &none        &bootloader                                                                               &bootloader            &tog FANCY    &none             &tog COMPACT_BASE &none        &tog MODS_LOWERROW &none
+        &none &none        &none        &none        &none        &none        &rgb_ug RGB_MEFS_CMD 5     &bt BT_CLR &bt BT_CLR            &bt BT_CLR &bt BT_CLR         &rgb_ug RGB_MEFS_CMD 5 &to DEF_LAYER &tog MODS_HOMEROW &none             &none        &tog STICKY_SHIFT  &none
+        &none &none        &to QWERTY   &none        &none        &none                   &none           &none      &none     &none &none &none      &none      &none                          &none         &none             &none             &none        &none              &none
+        &none &none        &none        &bl BL_INC   &bl BL_DEC                           &rgb_ug RGB_TOG &bl BL_TOG &none                 &none      &bl BL_TOG &rgb_ug RGB_TOG                              &bl BL_INC        &bl BL_DEC        &none        &none              &none
       >;
     };
   };
