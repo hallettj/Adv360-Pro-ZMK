@@ -128,7 +128,7 @@
         &trans &trans      &trans      &trans       &trans       &trans &trans                                                                                                  &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans       &trans &trans                   &trans              &trans             &trans &trans                           &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans       &trans        &none             &none               &trans &none &none &trans &none           &none                   &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE  &lt EXTEND_ALT ESC  &trans             &trans &lt EXTEND ESC  &hl SYMBOL ENTER               &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE  &lt EXTEND_ALT ESC  &trans             &trans &lt EXTEND ESC  &lt SYMBOL ENTER               &trans       &trans       &trans      &trans      &trans
       >;
     };
     mods_homerow {
