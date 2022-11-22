@@ -30,9 +30,9 @@
           compatible = "zmk,behavior-hold-tap";
           label = "HOMEROW_MOD";
           #binding-cells = <2>;
-          tapping-term-ms = <200>;    // <---[[moderate duration]]
-          quick-tap-ms = <200>;
           flavor = "balanced";
+          tapping-term-ms = <200>;    // <---[[moderate duration]]
+          quick-tap-ms = <150>;
           bindings = <&kp>, <&kp>;
       };
 
@@ -41,8 +41,17 @@
           label = "BALANCED_MOMENTARY_LAYER_TAP";
           #binding-cells = <2>;
           tapping-term-ms = <200>;    // <---[[moderate duration]]
-          quick-tap-ms = <200>;
+          quick-tap-ms = <150>;
           flavor = "balanced";
+          bindings = <&mo>, <&kp>;
+      };
+
+      mlt: my_layer_tap {
+          compatible = "zmk,behavior-hold-tap";
+          label = "mlt";
+          #binding-cells = <2>;
+          flavor = "hold-preferred";
+          tapping-term-ms = <300>;
           bindings = <&mo>, <&kp>;
       };
 
@@ -128,7 +137,7 @@
         &trans &trans      &trans      &trans       &trans       &trans &trans                                                                                                  &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans       &trans &trans                   &trans              &trans             &trans &trans                           &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans       &trans        &none             &none               &trans &none &none &trans &none           &none                   &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE  &lt EXTEND_ALT ESC  &trans             &trans &lt EXTEND ESC  &lt SYMBOL ENTER               &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE  &mlt EXTEND_ALT ESC &trans             &trans &mlt EXTEND ESC &mlt SYMBOL ENTER              &trans       &trans       &trans      &trans      &trans
       >;
     };
     mods_homerow {
