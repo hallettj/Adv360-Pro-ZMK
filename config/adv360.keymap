@@ -36,16 +36,6 @@
           bindings = <&kp>, <&kp>;
       };
 
-      hs: balanced_homerow_shift {
-          compatible = "zmk,behavior-hold-tap";
-          label = "HOMEROW_MOD";
-          #binding-cells = <2>;
-          flavor = "balanced";
-          tapping-term-ms = <150>;    // <---[[moderate duration]]
-          quick-tap-ms = <125>;
-          bindings = <&kp>, <&kp>;
-      };
-
       hl: balanced_momentary_layer_tap {
           compatible = "zmk,behavior-hold-tap";
           label = "BALANCED_MOMENTARY_LAYER_TAP";
@@ -173,7 +163,7 @@
       bindings = <
         &trans &trans      &trans      &trans       &trans       &trans &trans                                                          &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans       &trans &trans                                                          &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &hm LALT A  &hm LGUI O  &hs LSHFT E  &hm LCTRL U  &trans &trans         &trans  &trans             &trans &trans         &trans &trans &hm RCTRL H  &hs RSHFT T  &hm RGUI N  &hm RALT S  &trans
+        &trans &hm LALT A  &hm LGUI O  &hm LSHFT E  &hm LCTRL U  &trans &trans         &trans  &trans             &trans &trans         &trans &trans &hm RCTRL H  &hm RSHFT T  &hm RGUI N  &hm RALT S  &trans
         &trans &trans      &trans      &trans       &trans       &trans        &none   &none   &trans &none &none &trans &none   &none         &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans                     &trans  &trans  &trans             &trans &trans  &trans               &trans       &trans       &trans      &trans      &trans
       >;
@@ -183,7 +173,7 @@
         &trans &trans         &trans      &trans       &trans       &trans &trans                                                          &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans         &trans      &trans       &trans       &trans &trans                                                          &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans         &trans      &trans       &trans       &trans &trans         &trans  &trans             &trans &trans         &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &hm LALT SEMI  &hm LGUI Q  &hs LSHFT J  &hm LCTRL K  &trans        &none   &none   &trans &none &none &trans &none   &none         &trans &hm RCTRL M  &hs RSHFT W  &hm RGUI V  &hm RALT Z  &trans
+        &trans &hm LALT SEMI  &hm LGUI Q  &hm LSHFT J  &hm LCTRL K  &trans        &none   &none   &trans &none &none &trans &none   &none         &trans &hm RCTRL M  &hm RSHFT W  &hm RGUI V  &hm RALT Z  &trans
         &trans &trans         &trans      &trans       &trans                     &trans  &trans  &trans             &trans &trans  &trans               &trans       &trans       &trans      &trans      &trans
       >;
     };
