@@ -56,6 +56,25 @@
           bindings = <&mo>, <&kp>;
       };
 
+      skq: sticky_key_with_quick_release {
+	 compatible = "zmk,behavior-sticky-key";
+         label = "STICKY_KEY_QUICK_RELEASE";
+         #binding-cells = <1>;
+         bindings = <&kp>;
+         release-after-ms = <1000>;
+         quick-release;
+      };
+
+      shl: balanced_momentary_layer_tap_sticky {
+          compatible = "zmk,behavior-hold-tap";
+          label = "BALANCED_MOMENTARY_LAYER_TAP";
+          #binding-cells = <2>;
+          tapping-term-ms = <200>;    // <---[[moderate duration]]
+          quick-tap-ms = <150>;
+          flavor = "balanced";
+          bindings = <&mo>, <&skq>;
+      };
+
       mlt: my_layer_tap {
           compatible = "zmk,behavior-hold-tap";
           label = "mlt";
@@ -147,7 +166,7 @@
         &trans &trans      &trans      &trans       &trans       &trans &trans                                                                                                  &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans       &trans &trans                   &trans              &trans             &trans &trans                           &trans &trans &trans       &trans       &trans      &trans      &trans
         &trans &trans      &trans      &trans       &trans       &trans        &none             &none               &trans &none &none &trans &none           &none                   &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE  &mlt EXTEND_ALT ESC &trans             &trans &mlt EXTEND ESC &mlt SYMBOL ENTER              &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE  &mlt EXTEND_ALT ESC &trans             &trans &mlt EXTEND ESC &shl SYMBOL LSHFT              &trans       &trans       &trans      &trans      &trans
       >;
     };
     mods_homerow {
@@ -201,7 +220,7 @@
         &trans  &kp C_PLAY_PAUSE &kp C_PREV   &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &trans                                                       &trans &kp HOME    &kp PG_DN    &kp PG_UP    &kp END     &trans      &trans
         &trans  &kp ESC          &trans       &trans        &kp TAB       &caps_word  &trans        &trans &trans             &trans &trans        &trans &kp LEFT    &kp DOWN     &kp UP       &kp RIGHT   &kp BKSP    &trans
         &trans  &kp ESC          &trans       &trans        &kp TAB       &key_repeat        &none  &none  &trans &none &none &trans &none  &none         &key_repeat &kp ENTER    &trans       &trans      &kp DEL     &trans
-        &trans  &trans           &trans       &trans        &trans                           &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
+        &trans  &trans           &trans       &trans        &trans                           &trans &trans &trans             &trans &trans &kp ENTER                 &trans       &trans       &trans      &trans      &trans
       >;
     };
     mods_left {
