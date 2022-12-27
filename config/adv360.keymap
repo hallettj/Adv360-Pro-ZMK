@@ -11,16 +11,17 @@
 #define COMPACT_BASE      4
 #define MODS_HOMEROW      5
 #define MODS_LOWERROW     6
-#define KEYPAD            7
-#define SYMBOL            8
-#define EXTEND            9
-#define EXTEND_ALT        10
+#define GAMING            7
+#define KEYPAD            8
+#define SYMBOL            9
+#define EXTEND            10
 #define MODS_LEFT         11
 #define MODS_RIGHT        12
 #define MODS_LEFT_LOWER   13
 #define MODS_RIGHT_LOWER  14
-#define FN                15
-#define MOD               16 
+#define GAMING_KEYPAD     15
+#define FN                16
+#define MOD               17 
 
 /**
  * Shifted keys, like `&kp lpar`, do not work consistently in Gnome with
@@ -36,14 +37,14 @@
 #define SHIFTED(sym, macro_label) s_##sym: s_##sym {\
         label = macro_label;\
         compatible = "zmk,behavior-macro";\
-        wait-ms = <32>;\
+        wait-ms = <50>;\
         #binding-cells = <0>;\
         bindings\
             = <&macro_press &kp LSHFT>\
             , <&macro_press &kp sym>\
+            , <&macro_release &kp LSHFT>\
             , <&macro_pause_for_release>\
             , <&macro_release &kp sym>\
-            , <&macro_release &kp LSHFT>\
             ;\
     }
 
@@ -84,7 +85,7 @@
           compatible = "zmk,behavior-hold-tap";
           label = "MOMENTARY_LAYER_TAP_STICKY";
           #binding-cells = <2>;
-          tapping-term-ms = <200>;    // <---[[moderate duration]]
+          tapping-term-ms = <150>;    // <---[[moderate duration]]
           quick-tap-ms = <150>;
           flavor = "balanced";
           bindings = <&mo>, <&skq>;
@@ -99,12 +100,24 @@
           bindings = <&mo>, <&kp>;
       };
 
+      combos {
+        compatible = "zmk,combos";
+        // I input escape by holding space, and typing U. I like to do that
+        // quickly in a rolling press which the firmware interprets as a tap so
+        // it invokes the space behavior of the key instead of the layer shift.
+        // I don't think I can tweak the hold-tap settings to make this work,
+        // and still have a functional space key. So I have this combo for
+        // special-case, simultaneous pressing of these two keys.
+        combo_esc {
+          timeout-ms = <30>;
+          layers = <DEF_LAYER>;
+          key-positions = <32 71>; // 32 is U, 71 is space/extend
+          bindings = <&kp ESC>;
+        };
+      };
+
       conditional_layers {
           compatible = "zmk,conditional-layers";
-          right_mods_with_extend {
-            if-layers = <MODS_HOMEROW EXTEND>;
-            then-layer = <MODS_RIGHT>;
-          };
           right_mods_with_symbol {
             if-layers = <MODS_HOMEROW SYMBOL>;
             then-layer = <MODS_RIGHT>;
@@ -113,13 +126,9 @@
             if-layers = <MODS_HOMEROW KEYPAD>;
             then-layer = <MODS_LEFT>;
           };
-          left_mods_with_extend_alt {
-            if-layers = <MODS_HOMEROW EXTEND_ALT>;
+          left_mods_with_extend {
+            if-layers = <MODS_HOMEROW EXTEND>;
             then-layer = <MODS_LEFT>;
-          };
-          right_lower_mods_with_extend {
-            if-layers = <MODS_LOWERROW EXTEND>;
-            then-layer = <MODS_RIGHT_LOWER>;
           };
           right_lower_mods_with_symbol {
             if-layers = <MODS_LOWERROW SYMBOL>;
@@ -129,9 +138,13 @@
             if-layers = <MODS_LOWERROW KEYPAD>;
             then-layer = <MODS_LEFT_LOWER>;
           };
-          left_lower_mods_with_extend_alt {
-            if-layers = <MODS_LOWERROW EXTEND_ALT>;
+          left_lower_mods_with_extend {
+            if-layers = <MODS_LOWERROW EXTEND>;
             then-layer = <MODS_LEFT_LOWER>;
+          };
+          gaming_keypad_with_gaming {
+            if-layers = <KEYPAD GAMING>;
+            then-layer = <GAMING_KEYPAD>;
           };
       };
     };
@@ -198,11 +211,11 @@
     };
     compact_base {
       bindings = <
-        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                                                  &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                                                  &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans       &trans &trans                   &trans              &trans             &trans &trans                           &trans &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans       &trans        &none             &none               &trans &none &none &trans &none           &none                   &trans &trans       &trans       &trans      &trans      &trans
-        &trans &trans      &trans      &trans       &trans                     &hl KEYPAD SPACE  &mlt EXTEND_ALT ESC &trans             &trans &mlt EXTEND ESC &shl SYMBOL LSHFT              &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                              &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                                                                              &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans &trans                   &trans     &trans             &trans &trans                &trans &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans       &trans        &none             &none      &trans &none &none &trans &none      &none             &trans &trans       &trans       &trans      &trans      &trans
+        &trans &trans      &trans      &trans       &trans                     &hl EXTEND SPACE  &sl KEYPAD &trans             &trans &skq LSHFT &sl SYMBOL               &trans       &trans       &trans      &trans      &trans
       >;
     };
     mods_homerow {
@@ -223,40 +236,40 @@
         &trans &trans         &trans      &trans       &trans                     &trans  &trans  &trans             &trans &trans  &trans               &trans       &trans       &trans      &trans      &trans
       >;
     };
+    gaming {
+      bindings = <
+        &trans    &trans   &trans &trans &trans &trans &trans                                                                  &trans &trans &trans &trans &trans &trans &kp ESC
+        &trans    &trans   &trans &trans &trans &trans &trans                                                                  &trans &trans &trans &trans &trans &trans &trans
+        &kp LCTRL &trans   &trans &trans &trans &trans &trans            &trans &trans               &trans     &trans         &trans &trans &trans &trans &trans &trans &kp ENTER
+        &trans    &kp SEMI &kp Q  &kp J  &kp K  &trans        &none      &none  &trans   &none &none &trans     &none   &none         &trans &trans &trans &trans &trans &trans
+        &trans    &trans   &trans &trans &trans               &kp SPACE  &trans &kp BKSP             &mo EXTEND &trans  &trans               &trans &trans &trans &trans &trans
+      >;
+    };
     keypad {
       bindings = <
-        &trans &trans &trans       &trans &trans &trans &trans                                                        &trans  &trans &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &trans
-        &trans &trans &trans       &trans &trans &trans &trans                                                        &trans  &trans &kp N7     &kp N8       &kp N9        &kp KP_MINUS    &trans
-        &trans &trans &trans       &trans &trans &trans &trans        &trans &trans             &trans &kp DEL        &trans  &trans &kp N4     &kp N5       &kp N6        &kp KP_EQUAL    &trans
-        &trans &trans &trans       &trans &trans &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &kp N1     &kp N2       &kp N3        &kp KP_PLUS     &trans
-        &trans &trans &kp INSERT   &trans &trans               &trans &trans &trans             &trans &trans  &kp N0                &trans     &trans       &kp KP_DOT    &kp KP_ENTER    &trans 
+        &trans &trans    &trans     &trans  &trans  &trans &trans                                                        &trans  &trans &kp KP_NUM &kp KP_EQUAL &kp KP_DIVIDE &kp KP_MULTIPLY &trans
+        &trans &trans    &trans     &kp DOT &trans  &trans &trans                                                        &trans  &trans &kp N7     &kp N8       &kp N9        &kp KP_MINUS    &trans
+        &trans &kp K_APP &trans     &kp TAB &kp ESC &trans &trans        &trans &trans             &trans &kp DEL        &trans  &trans &kp N4     &kp N5       &kp N6        &kp BKSP        &trans
+        &trans &trans    &trans     &trans  &trans  &trans        &none  &none  &trans &none &none &trans &none   &none          &trans &kp N1     &kp N2       &kp N3        &kp KP_PLUS     &trans
+        &trans &trans    &kp INSERT &trans  &trans                &trans &trans &trans             &trans &trans  &kp N0                &trans     &trans       &kp KP_DOT    &kp KP_ENTER    &trans 
       >;
     };
     symbol {
       bindings = <
-        &trans  &trans    &trans   &trans  &trans  &trans   &trans                                                        &trans &trans   &trans       &trans    &trans       &trans      &trans
-        &trans  &s_EXCL   &s_AT    &s_HASH &s_DLLR &s_PRCNT &trans                                                        &trans &s_CARET &s_UNDER     &s_QMARK  &s_ASTRK     &s_AMPS     &trans
-        &trans  &kp GRAVE &s_TILDE &s_LBRC &s_LPAR &kp LBKT &trans         &trans &trans             &trans &trans        &trans &kp BSLH &kp KP_MINUS &kp FSLH  &kp KP_EQUAL &kp KP_PLUS &trans
-        &trans  &s_LT     &s_GT    &s_RBRC &s_RPAR &kp RBKT         &none  &none  &trans &none &none &trans &none  &none         &s_PIPE  &kp KP_MINUS &kp FSLH  &kp KP_EQUAL &kp KP_PLUS &trans
-        &trans  &trans    &trans   &trans  &trans                   &trans &trans &trans             &trans &trans &trans                 &trans       &trans    &trans       &trans      &trans
+        &trans  &trans    &trans  &trans   &trans   &trans   &trans                                                           &trans &trans   &trans       &trans    &trans       &trans      &trans
+        &trans  &s_AT     &s_EXCL &kp LBKT &kp RBKT &none    &trans                                                           &trans &s_CARET &s_UNDER     &s_QMARK  &s_ASTRK     &s_AMPS     &trans
+        &trans  &kp GRAVE &s_DLLR &s_LPAR  &s_RPAR  &s_PRCNT &trans            &trans &trans             &trans &trans        &trans &kp BSLH &kp KP_MINUS &kp FSLH  &kp KP_EQUAL &kp KP_PLUS &trans
+        &trans  &s_TILDE  &s_HASH &s_LBRC  &s_RBRC  &none            &none     &none  &trans &none &none &trans &none  &none         &s_PIPE  &kp KP_MINUS &kp FSLH  &kp KP_EQUAL &kp KP_PLUS &trans
+        &trans  &trans    &trans  &trans   &trans                    &kp ENTER &trans &trans             &trans &trans &trans                 &trans       &trans    &trans       &trans      &trans
       >;
     };
     extend {
       bindings = <
-        &trans  &trans     &trans      &trans       &trans       &trans      &trans                                                       &trans &trans           &trans        &trans        &trans      &trans      &trans
-        &trans  &kp PG_UP  &kp HOME    &kp UP       &kp END      &trans      &trans                                                       &trans &kp C_PLAY_PAUSE &kp C_VOL_DN  &kp C_VOL_UP  &kp C_PREV  &kp C_NEXT  &trans
-        &trans  &kp PG_DN  &kp LEFT    &kp DOWN     &kp RIGHT    &caps_word  &trans        &trans &trans             &trans &trans        &trans &trans           &kp TAB       &kp BKSP      &kp DEL     &kp ESC     &trans
-        &trans  &trans     &trans      &trans       &kp ENTER    &key_repeat        &none  &none  &trans &none &none &trans &none  &none         &key_repeat      &kp TAB       &kp BKSP      &kp DEL     &kp ESC     &trans
-        &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                         &trans        &trans        &trans      &trans      &trans
-      >;
-    };
-    extend_alt {
-      bindings = <
-        &trans  &trans           &trans       &trans        &trans        &trans      &trans                                                       &trans &trans      &trans       &trans       &trans      &trans      &trans
-        &trans  &kp C_PLAY_PAUSE &kp C_PREV   &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &trans                                                       &trans &kp HOME    &kp PG_DN    &kp PG_UP    &kp END     &trans      &trans
-        &trans  &kp ESC          &trans       &trans        &kp TAB       &caps_word  &trans        &trans &trans             &trans &trans        &trans &kp LEFT    &kp DOWN     &kp UP       &kp RIGHT   &kp BKSP    &trans
-        &trans  &kp ESC          &trans       &trans        &kp TAB       &key_repeat        &none  &none  &trans &none &none &trans &none  &none         &key_repeat &kp ENTER    &trans       &trans      &kp DEL     &trans
-        &trans  &trans           &trans       &trans        &trans                           &trans &trans &trans             &trans &trans &kp ENTER                 &trans       &trans       &trans      &trans      &trans
+        &trans  &trans           &trans       &trans        &trans        &trans      &trans                                                       &trans &trans   &trans    &trans    &trans    &trans   &trans
+        &trans  &kp C_PLAY_PAUSE &kp C_PREV   &kp C_VOL_DN  &kp C_VOL_UP  &kp C_NEXT  &trans                                                       &trans &kp HOME &kp PG_DN &kp PG_UP &kp END   &kp INS  &trans
+        &trans  &trans           &caps_word   &kp TAB       &kp ESC       &trans      &trans        &trans &trans             &trans &trans        &trans &kp LEFT &kp DOWN  &kp UP    &kp RIGHT &kp BKSP &trans
+        &trans  &trans           &trans       &kp TAB       &kp TAB       &trans             &none  &none  &trans &none &none &trans &none  &none         &trans   &trans    &trans    &trans    &kp DEL  &trans
+        &trans  &trans           &trans       &trans        &trans                           &trans &trans &trans             &trans &trans &kp ENTER              &trans    &trans    &trans    &trans   &trans
       >;
     };
     mods_left {
@@ -295,6 +308,15 @@
         &trans  &trans     &trans      &trans       &trans                          &trans &trans &trans             &trans &trans &trans                    &trans       &trans       &trans      &trans      &trans
       >;
     };
+    gaming_keypad {
+      bindings = <
+        &trans    &trans &trans &trans  &trans &trans &trans                                                        &trans  &trans &trans &trans &trans &trans &trans
+        &kp ESC   &kp L  &kp R  &kp DOT &kp G  &kp F  &trans                                                        &trans  &trans &trans &trans &trans &trans &trans
+        &kp MINUS &kp S  &kp O  &kp E   &kp U  &kp D  &trans        &trans &trans             &trans &trans         &trans  &trans &trans &trans &trans &trans &trans
+        &kp GRAVE &kp N1 &kp N2 &kp N3  &kp N4 &kp N5        &none  &none  &trans &none &none &trans &none   &none          &trans &trans &trans &trans &trans &trans
+        &trans    &trans &trans &trans  &trans               &trans &trans &trans             &trans &trans  &trans                &trans &trans &trans &trans &trans
+      >;
+    };
     fn {
       bindings = <
         &kp F1 &kp F2 &kp F3       &kp F4 &kp F5 &kp F6 &tog 1                                                                              &mo 3 &kp F7 &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
@@ -307,7 +329,7 @@
     mod {
       bindings = <
         &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none                                                                                     &trans                 &bt BT_SEL 0  &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3 &bt BT_SEL 4       &none
-        &none &none        &none        &none        &none        &none        &bootloader                                                                               &bootloader            &tog FANCY    &none             &tog COMPACT_BASE &none        &tog MODS_LOWERROW &none
+        &none &none        &none        &none        &none        &none        &bootloader                                                                               &bootloader            &tog FANCY    &tog GAMING       &tog COMPACT_BASE &none        &tog MODS_LOWERROW &none
         &none &none        &none        &none        &none        &none        &rgb_ug RGB_MEFS_CMD 5     &bt BT_CLR &bt BT_CLR            &bt BT_CLR &bt BT_CLR         &rgb_ug RGB_MEFS_CMD 5 &to DEF_LAYER &tog MODS_HOMEROW &none             &none        &tog STICKY_SHIFT  &none
         &none &none        &to QWERTY   &none        &none        &none                   &none           &none      &none     &none &none &none      &none      &none                          &none         &none             &none             &none        &none              &none
         &none &none        &none        &bl BL_INC   &bl BL_DEC                           &rgb_ug RGB_TOG &bl BL_TOG &none                 &none      &bl BL_TOG &rgb_ug RGB_TOG                              &bl BL_INC        &bl BL_DEC        &none        &none              &none
